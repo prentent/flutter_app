@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+
 import '../https/DioHelper.dart';
 import '../https/ApiUrl.dart';
+import '../entity/user_entity.dart';
+import '../utils/SpHelper.dart';
 
 class Login extends StatefulWidget {
 //  Login(Key key):super(key: key);
@@ -13,6 +17,18 @@ class _LoginState extends State<Login> {
   TextEditingController _pwdController = new TextEditingController();
 
   bool isShow = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SpHelper().getStr("uid").then((uid) {
+      _unameController.text = uid;
+    });
+    SpHelper().getStr("pwd").then((pwd) {
+      _pwdController.text = pwd;
+    });
+  }
 
   @override
   void dispose() {
@@ -162,8 +178,14 @@ class _LoginState extends State<Login> {
                         DioHelper()
                             .get(ApiUrl.login, data: _data)
                             .then((onValue) {
-                          print(onValue.toString() + "------");
-                          print(onValue.data.toString() + "------");
+                          Map userMap = json.decode(onValue.toString());
+                          UserEntity user = UserEntity.fromJson(userMap);
+                          if (user.code == "200") {
+                            SpHelper().setStr("uid", _unameController.text); //保存用户名
+                            SpHelper().setStr("pwd", _pwdController.text); //保存密码
+                            SpHelper().setStr("user", onValue.toString());
+                            Navigator.of(context) .pushReplacementNamed('main'); //跳转主页
+                          }
                         });
                       } else {
                         //至少一个为空

@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue, //主题色
           primaryColor: Colors.blue, //导航栏颜色
-          canvasColor: Colors.blue, //画布颜色
+          canvasColor: Colors.white, //画布颜色
         ),
         //  注册路由表
         routes: routesMap,

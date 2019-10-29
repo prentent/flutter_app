@@ -66,7 +66,7 @@ class DioHelper {
         print('get请求发生错误：$e');
       }
     }
-    return response.data;
+    return response;
   }
 
   // post请求封装
@@ -85,6 +85,6 @@ class DioHelper {
         print('get请求发生错误：$e');
       }
     }
-    return response.data;
+    return response;
   }
 }
