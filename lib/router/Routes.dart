@@ -5,8 +5,10 @@ import '../view/Login.dart';
 import '../view/WelComePage.dart';
 import '../view/MainPage.dart';
 
+
 Map<String, WidgetBuilder> routesMap = {
   "login": (context) => Login(),
   "welcome": (context) => WelComePage(),
-  "main": (context) => MainPage()
+  "main": (context) => MainPage(),
+
 };
